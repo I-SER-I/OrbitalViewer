@@ -2,6 +2,6 @@
 {
     public interface IPolynomial
     {
-        double GetElement(double firstParameter, double secondParameter, double argument);
+        double GetElement(int firstParameter, int secondParameter, double argument);
     }
 }

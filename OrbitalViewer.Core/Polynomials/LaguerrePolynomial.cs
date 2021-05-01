@@ -2,7 +2,7 @@
 {
     public class LaguerrePolynomial : IPolynomial
     {
-        public double GetElement(double alpha, double k, double argument)
+        public double GetElement(int alpha, int k, double argument)
         {
             return k switch
             {

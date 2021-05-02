@@ -18,12 +18,12 @@ namespace OrbitalViewer.Core.Models.Functions
         public double GetValue(int order, int degree)
         {
             var laguerre = new LegendrePolynomial();
-            double ePath = order >= 0 ? Math.Cos(order * _phi) : Math.Sin(Math.Abs(order) * _phi);
-            double firstPath = (2 * degree + 1) / (4 * Math.PI);
-            double secondPath = SpecialFunctions.Factorial(degree - Math.Abs(order)) /
+            double ePart = order >= 0 ? Math.Cos(order * _phi) : Math.Sin(Math.Abs(order) * _phi);
+            double firstPart = (2 * degree + 1) / (4 * Math.PI);
+            double secondPart = SpecialFunctions.Factorial(degree - Math.Abs(order)) /
                                 SpecialFunctions.Factorial(degree + Math.Abs(order));
-            var normalCoeff = Math.Sqrt(2) * Math.Sqrt(firstPath * secondPath);
-            return normalCoeff * laguerre.GetElement(degree, order, Math.Cos(_theta * Math.PI / 180)) * ePath;
+            var normalCoeff = Math.Sqrt(2) * Math.Sqrt(firstPart * secondPart);
+            return normalCoeff * laguerre.GetElement(degree, order, Math.Cos(_theta * Math.PI / 180)) * ePart;
         }
     }
 }

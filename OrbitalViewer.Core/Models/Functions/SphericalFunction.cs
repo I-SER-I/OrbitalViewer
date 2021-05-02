@@ -15,15 +15,16 @@ namespace OrbitalViewer.Core.Models.Functions
             _phi = phi;
         }
 
-        public double GetValue(int order, int degree)
+        public double GetValue(int magnetic, int azimuthal)
         {
             var laguerre = new LegendrePolynomial();
-            double ePart = order >= 0 ? Math.Cos(order * _phi) : Math.Sin(Math.Abs(order) * _phi);
-            double firstPart = (2 * degree + 1) / (4 * Math.PI);
-            double secondPart = SpecialFunctions.Factorial(degree - Math.Abs(order)) /
-                                SpecialFunctions.Factorial(degree + Math.Abs(order));
-            var normalCoeff = Math.Sqrt(2) * Math.Sqrt(firstPart * secondPart);
-            return normalCoeff * laguerre.GetElement(degree, order, Math.Cos(_theta * Math.PI / 180)) * ePart;
+            double ePart = magnetic >= 0 ? Math.Cos(magnetic * _phi) : Math.Sin(Math.Abs(magnetic) * _phi);
+            double firstPart = (2 * azimuthal + 1) / (4 * Math.PI);
+            double secondPart = SpecialFunctions.Factorial(azimuthal - Math.Abs(magnetic)) /
+                                SpecialFunctions.Factorial(azimuthal + Math.Abs(magnetic));
+            double normalCoeff = Math.Sqrt(2) * Math.Sqrt(firstPart * secondPart);
+            double argument = Math.Cos(_theta * Math.PI / 180) * ePart;
+            return normalCoeff * laguerre.GetElement(azimuthal, magnetic, argument);
         }
     }
 }

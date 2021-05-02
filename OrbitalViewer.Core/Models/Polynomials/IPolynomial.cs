@@ -1,4 +1,4 @@
-﻿namespace OrbitalViewer.Core.Polynomials
+﻿namespace OrbitalViewer.Core.Models.Polynomials
 {
     public interface IPolynomial
     {

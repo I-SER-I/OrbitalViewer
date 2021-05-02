@@ -11,14 +11,13 @@ namespace OrbitalViewer.Core.Models.Polynomials
             if (degree == 1 && order == 0) return argument;
             if (degree == order)
             {
-                double r = order % 2 == 0 ? 1 : -1;
-                for (double d = 2 * order - 1; d > 1; d -= 2)
+                double sign = order % 2 == 0 ? 1 : -1;
+                for (double i = 2 * order - 1; i > 1; i -= 2)
                 {
-                    r *= d;
+                    sign *= i;
                 }
 
-                r *= Math.Pow(1 - argument * argument, (double) order / 2);
-                return r;
+                return sign * Math.Pow(1 - argument * argument, (double) order / 2);
             }
 
             return ((2 * degree - 1) * argument * GetElement(degree - 1, order, argument) -

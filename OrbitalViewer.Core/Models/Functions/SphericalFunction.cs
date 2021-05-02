@@ -6,25 +6,25 @@ namespace OrbitalViewer.Core.Models.Functions
 {
     public class SphericalFunction
     {
-        private readonly double _theta;
-        private readonly double _phi;
+        private readonly int _azimuthal;
+        private readonly int _magnetic;
 
-        public SphericalFunction(double theta, double phi)
+        public SphericalFunction(int azimuthal, int magnetic)
         {
-            _theta = theta;
-            _phi = phi;
+            _azimuthal = azimuthal;
+            _magnetic = magnetic;
         }
 
-        public double GetValue(int magnetic, int azimuthal)
+        public double GetValue(double theta, double phi)
         {
             var laguerre = new LegendrePolynomial();
-            double ePart = magnetic >= 0 ? Math.Cos(magnetic * _phi) : Math.Sin(Math.Abs(magnetic) * _phi);
-            double firstPart = (2 * azimuthal + 1) / (4 * Math.PI);
-            double secondPart = SpecialFunctions.Factorial(azimuthal - Math.Abs(magnetic)) /
-                                SpecialFunctions.Factorial(azimuthal + Math.Abs(magnetic));
-            double normalCoeff = Math.Sqrt(2) * Math.Sqrt(firstPart * secondPart);
-            double argument = Math.Cos(_theta * Math.PI / 180) * ePart;
-            return normalCoeff * laguerre.GetElement(azimuthal, magnetic, argument);
+            double ePart = _magnetic >= 0 ? Math.Cos(_magnetic * phi) : Math.Sin(Math.Abs(_magnetic) * phi);
+            double firstPart = (2 * _azimuthal + 1) / (4 * Math.PI);
+            double secondPart = SpecialFunctions.Factorial(_azimuthal - Math.Abs(_magnetic)) /
+                                SpecialFunctions.Factorial(_azimuthal + Math.Abs(_magnetic));
+            double normalCoefficient = Math.Sqrt(2) * Math.Sqrt(firstPart * secondPart);
+            double argument = Math.Cos(theta * Math.PI / 180) * ePart;
+            return normalCoefficient * laguerre.GetElement(_azimuthal, _magnetic, argument);
         }
     }
 }

@@ -6,4 +6,12 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="OxyPlot.Wpf" Version="2.1.0-Preview1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OrbitalViewer.Core\OrbitalViewer.Core.csproj" />
+    </ItemGroup>
+
 </Project>

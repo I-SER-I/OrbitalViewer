@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="OxyPlot.Wpf" Version="2.1.0-Preview1" />
+      <PackageReference Include="Uno.GalaSoft.MvvmLight" Version="5.4.0-uno.138" />
     </ItemGroup>
 
     <ItemGroup>

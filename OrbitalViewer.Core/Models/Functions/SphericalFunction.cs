@@ -1,5 +1,4 @@
 ﻿using System;
-using MathNet.Numerics;
 using OrbitalViewer.Core.Models.Polynomials;
 
 namespace OrbitalViewer.Core.Models.Functions

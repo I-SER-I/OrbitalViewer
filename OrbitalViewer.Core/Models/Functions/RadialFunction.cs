@@ -1,12 +1,11 @@
 ﻿using System;
-using MathNet.Numerics;
 using OrbitalViewer.Core.Models.Polynomials;
 
 namespace OrbitalViewer.Core.Models.Functions
 {
     public class RadialFunction
     {
-        private const double BohrRadius = 10e-11 * 5.29177210903;
+        private const double BohrRadius = 5.29177210903e-1;
         private readonly int _principal;
         private readonly int _azimuthal;
 

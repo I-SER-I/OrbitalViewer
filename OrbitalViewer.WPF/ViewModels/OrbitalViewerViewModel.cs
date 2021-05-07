@@ -1,11 +1,9 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.Input;
 using OrbitalViewer.Core.Models.Functions;
+using OrbitalViewer.WPF.Models;
 using OxyPlot;
 using OxyPlot.Axes;
-using OxyPlot.Series;
-using Uno.UI.Common;
 
 namespace OrbitalViewer.WPF.ViewModels
 {
@@ -14,7 +12,7 @@ namespace OrbitalViewer.WPF.ViewModels
         private PlotModel _scatterModel;
 
         private int _principalQuantumNumber;
-        private int _azimuthalQuantumNumber;
+        private int _orbitalQuantumNumber;
         private int _magneticQuantumNumber;
 
         public string PrincipalQuantumNumber
@@ -30,14 +28,14 @@ namespace OrbitalViewer.WPF.ViewModels
             }
         }
 
-        public string AzimuthalQuantumNumber
+        public string OrbitalQuantumNumber
         {
             set
             {
                 int newValue = int.Parse(value);
-                if (_azimuthalQuantumNumber != newValue)
+                if (_orbitalQuantumNumber != newValue)
                 {
-                    _azimuthalQuantumNumber = newValue;
+                    _orbitalQuantumNumber = newValue;
                     OnPropertyChanged();
                 }
             }
@@ -73,47 +71,20 @@ namespace OrbitalViewer.WPF.ViewModels
         {
             get
             {
-                return new DelegateCommand(() =>
+                return new RelayCommand(() =>
                 {
-                    int Size = 500;
-                    PlotModel plot = new PlotModel
+                    PlotModel plotModel = new PlotModel
                     {
-                        Title = "HeatMap",
-                        Background = OxyColor.FromUInt32(4278192527)
+                        Title = "Electrons probability density"
                     };
-                    plot.Axes.Add(new LinearColorAxis
+                    plotModel.Axes.Add(new LinearColorAxis
                     {
                         Palette = OxyPalettes.Jet(1024)
                     });
-
-                    var data = new double[Size * 2, Size * 2];
-                    var waveFunction = new WaveFunction(_principalQuantumNumber, _azimuthalQuantumNumber, _magneticQuantumNumber);
-                    for (int i = -Size; i < Size; i++)
-                    {
-                        for (int j = -Size; j < Size; j++)
-                        {
-                            var x = i * 0.1;
-                            var y = j * 0.1;
-                            var radius = Math.Sqrt(x * x + y * y);
-                            var theta = Math.Atan2(radius, 0);
-                            var phi = Math.Atan2(y, x);
-                            data[i + Size, j + Size] = waveFunction.GetValue(radius, theta, phi);
-                        }
-                    }
-
-                    var series = new HeatMapSeries()
-                    {
-                        X0 = -Size,
-                        X1 = Size,
-                        Y0 = -Size,
-                        Y1 = Size,
-                        Interpolate = true,
-                        RenderMethod = HeatMapRenderMethod.Bitmap,
-                        Data = data
-                    };
-
-                    plot.Series.Add(series);
-                    ScatterModel = plot;
+                    var waveFunction = new WaveFunction(_principalQuantumNumber, _orbitalQuantumNumber, _magneticQuantumNumber);
+                    var heatMapPlot = new OrbitalViewerPlotModel(waveFunction).GetHeatMapPlot(1000);
+                    plotModel.Series.Add(heatMapPlot);
+                    ScatterModel = plotModel;
                 });
             }
         }

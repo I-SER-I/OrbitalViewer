@@ -1,77 +1,81 @@
 ﻿<Window
-    Height="600"
-    Title="OrbitalViewer"
-    Width="800"
     x:Class="OrbitalViewer.WPF.Views.OrbitalViewerWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:local="clr-namespace:OrbitalViewer.WPF"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
     xmlns:viewModels="clr-namespace:OrbitalViewer.WPF.ViewModels"
-    xmlns:wpf="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    Title="OrbitalViewer"
+    Width="800"
+    Height="600">
     <Window.DataContext>
         <viewModels:OrbitalViewerViewModel />
     </Window.DataContext>
     <Grid>
-        <Canvas Margin="15,49,620,395">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="151*" />
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.ColumnSpan="2" Margin="15,49,620,395">
             <Canvas Name="PrincipalCanvas">
                 <Label
+                    Name="PrincipalLabel"
                     Canvas.Left="10"
                     Canvas.Top="5"
-                    Content="Principal Number"
+                    Width="110"
                     Height="25"
-                    Name="PrincipalLabel"
-                    Width="115" />
+                    Content="Principal Number" />
                 <TextBox
-                    Canvas.Left="125"
-                    Canvas.Top="10"
-                    Height="20"
                     Name="PrincipalTextBox"
-                    Text="{Binding PrincipalQuantumNumber}"
-                    Width="30" />
+                    Canvas.Left="120"
+                    Canvas.Top="10"
+                    Width="30"
+                    Height="20"
+                    Text="{Binding PrincipalQuantumNumber}" />
             </Canvas>
-            <Canvas Name="AzimuthalCanvas">
+            <Canvas Name="OrbitalCanvas">
                 <Label
+                    Name="OrbitalLabel"
                     Canvas.Left="10"
                     Canvas.Top="35"
-                    Content="Azimuthal Number"
+                    Width="110"
                     Height="25"
-                    Name="AzimuthalLabel"
-                    Width="115" />
+                    Content="Orbital Number" />
                 <TextBox
-                    Canvas.Left="125"
-                    Canvas.Top="40"
-                    Height="20"
                     Name="MagneticTextBox"
-                    Text="{Binding AzimuthalQuantumNumber}"
-                    Width="30" />
+                    Canvas.Left="120"
+                    Canvas.Top="40"
+                    Width="30"
+                    Height="20"
+                    Text="{Binding OrbitalQuantumNumber}" />
             </Canvas>
             <Canvas Name="MagneticCanvas">
                 <Label
+                    x:Name="MagneticLabel"
                     Canvas.Left="10"
                     Canvas.Top="65"
-                    Content="Magnetic Number"
+                    Width="110"
                     Height="25"
-                    Width="115"
-                    x:Name="MagneticLabel" />
+                    Content="Magnetic Number" />
                 <TextBox
-                    Canvas.Left="125"
+                    Name="OrbitalTextBox"
+                    Canvas.Left="120"
                     Canvas.Top="70"
+                    Width="30"
                     Height="20"
-                    Name="AzimuthalTextBox"
-                    Text="{Binding MagneticQuantumNumber}"
-                    Width="30" />
+                    Text="{Binding MagneticQuantumNumber}" />
             </Canvas>
             <Button
+                x:Name="GetPlot"
                 Canvas.Left="10"
                 Canvas.Top="100"
-                Command="{Binding GetPlot}"
+                Width="145"
                 Height="30"
-                Name="GetdPlot"
-                Width="145">
-                Get plot
-            </Button>
-
+                Command="{Binding GetPlot}"
+                Content="Run" />
         </Canvas>
-        <wpf:PlotView Margin="185,10,10,10" Model="{Binding ScatterModel}" />
+        <oxy:PlotView
+            Grid.Column="1"
+            Margin="140,10,10,10"
+            Model="{Binding ScatterModel}" />
     </Grid>
 </Window>

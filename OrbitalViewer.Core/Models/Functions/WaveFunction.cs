@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace OrbitalViewer.Core.Models.Functions
 {
     public class WaveFunction
     {
         private readonly RadialFunction _radialFunction;
-        private readonly SphericalFunction _specialFunctions;
+        private readonly SphericalFunction _sphericalFunction;
 
-        public WaveFunction(int principalQuantumNumber, int azimuthalQuantumNumber, int magneticQuantumNumber)
+        public WaveFunction(int principalQuantumNumber, int orbitalQuantumNumber, int magneticQuantumNumber)
         {
-            _radialFunction = new RadialFunction(principalQuantumNumber, azimuthalQuantumNumber);
-            _specialFunctions = new SphericalFunction(azimuthalQuantumNumber, magneticQuantumNumber);
+            _radialFunction = new RadialFunction(principalQuantumNumber, orbitalQuantumNumber);
+            _sphericalFunction = new SphericalFunction(orbitalQuantumNumber, magneticQuantumNumber);
         }
 
-        public double GetValue(double radius, double theta, double phi) =>
-            Math.Pow(_radialFunction.GetValue(radius) * _specialFunctions.GetValue(theta, phi), 2);
+        public double GetValue(double radius, double theta, double phi)
+        {
+            return Math.Pow(_radialFunction.GetValue(radius) * _sphericalFunction.GetValue(theta, phi), 2);
+        }
     }
 }

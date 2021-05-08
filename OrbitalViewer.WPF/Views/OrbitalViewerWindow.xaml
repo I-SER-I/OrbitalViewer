@@ -1,12 +1,12 @@
 ﻿<Window
-    x:Class="OrbitalViewer.WPF.Views.OrbitalViewerWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
-    xmlns:viewModels="clr-namespace:OrbitalViewer.WPF.ViewModels"
+    Height="600"
     Title="OrbitalViewer"
     Width="800"
-    Height="600">
+    x:Class="OrbitalViewer.WPF.Views.OrbitalViewerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
+    xmlns:viewModels="clr-namespace:OrbitalViewer.WPF.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Window.DataContext>
         <viewModels:OrbitalViewerViewModel />
     </Window.DataContext>
@@ -18,60 +18,126 @@
         <Canvas Grid.ColumnSpan="2" Margin="15,49,620,395">
             <Canvas Name="PrincipalCanvas">
                 <Label
-                    Name="PrincipalLabel"
-                    Canvas.Left="10"
+                    Canvas.Left="5"
                     Canvas.Top="5"
-                    Width="110"
+                    Content="Principal Quantum"
                     Height="25"
-                    Content="Principal Number" />
+                    Name="PrincipalLabel"
+                    Width="115" />
                 <TextBox
-                    Name="PrincipalTextBox"
-                    Canvas.Left="120"
+                    Canvas.Left="130"
                     Canvas.Top="10"
-                    Width="30"
                     Height="20"
-                    Text="{Binding PrincipalQuantumNumber}" />
+                    Name="PrincipalTextBox"
+                    Text="{Binding PrincipalQuantumNumber}"
+                    Width="30" />
             </Canvas>
             <Canvas Name="OrbitalCanvas">
                 <Label
-                    Name="OrbitalLabel"
-                    Canvas.Left="10"
+                    Canvas.Left="5"
                     Canvas.Top="35"
-                    Width="110"
+                    Content="Orbital Quantum"
                     Height="25"
-                    Content="Orbital Number" />
+                    Name="OrbitalLabel"
+                    Width="115" />
                 <TextBox
-                    Name="MagneticTextBox"
-                    Canvas.Left="120"
+                    Canvas.Left="130"
                     Canvas.Top="40"
-                    Width="30"
                     Height="20"
-                    Text="{Binding OrbitalQuantumNumber}" />
+                    Name="MagneticTextBox"
+                    Text="{Binding OrbitalQuantumNumber}"
+                    Width="30" />
             </Canvas>
             <Canvas Name="MagneticCanvas">
                 <Label
-                    x:Name="MagneticLabel"
-                    Canvas.Left="10"
+                    Canvas.Left="5"
                     Canvas.Top="65"
-                    Width="110"
+                    Content="Magnetic Quantum"
                     Height="25"
-                    Content="Magnetic Number" />
+                    Width="115"
+                    x:Name="MagneticLabel" />
                 <TextBox
-                    Name="OrbitalTextBox"
-                    Canvas.Left="120"
+                    Canvas.Left="130"
                     Canvas.Top="70"
-                    Width="30"
                     Height="20"
-                    Text="{Binding MagneticQuantumNumber}" />
+                    Name="OrbitalTextBox"
+                    Text="{Binding MagneticQuantumNumber}"
+                    Width="30" />
             </Canvas>
             <Button
-                x:Name="GetPlot"
-                Canvas.Left="10"
+                Canvas.Left="5"
                 Canvas.Top="100"
-                Width="145"
-                Height="30"
                 Command="{Binding GetPlot}"
-                Content="Run" />
+                Content="Run"
+                Height="35"
+                Width="155"
+                x:Name="GetPlot" />
+        </Canvas>
+        <Canvas
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="15,292,620,152">
+            <Label
+                Canvas.Left="5"
+                Canvas.Top="7"
+                Content="Results"
+                FontSize="16"
+                FontWeight="Bold"
+                Height="35"
+                HorizontalContentAlignment="Center"
+                Width="155"
+                x:Name="Result" />
+            <Canvas x:Name="OrbitalsNumberCanvas">
+                <Label
+                    Canvas.Left="5"
+                    Canvas.Top="50"
+                    Content="Number of orbitals"
+                    Height="24"
+                    Width="125"
+                    x:Name="OrbitalsNumberLabel" />
+                <TextBox
+                    Canvas.Left="130"
+                    Canvas.Top="54"
+                    Height="20"
+                    IsReadOnly="True"
+                    Text="{Binding OrbitalsNumber}"
+                    Width="30"
+                    x:Name="OrbitalsNumberTextBox" />
+            </Canvas>
+            <Canvas x:Name="OrbitalNameCanvas">
+                <Label
+                    Canvas.Left="5"
+                    Canvas.Top="80"
+                    Content="Orbital Name"
+                    Height="24"
+                    Width="125"
+                    x:Name="OrbitalNameLabel" />
+                <TextBox
+                    Canvas.Left="130"
+                    Canvas.Top="84"
+                    Height="20"
+                    IsReadOnly="True"
+                    Text="{Binding OrbitalName}"
+                    Width="30"
+                    x:Name="OrbitalNameTextBox" />
+            </Canvas>
+            <Canvas x:Name="ElectronsCanvas">
+                <Label
+                    Canvas.Left="5"
+                    Canvas.Top="110"
+                    Content="Number of electrons"
+                    Height="24"
+                    Width="125"
+                    x:Name="ElectronsLabel" />
+                <TextBox
+                    Canvas.Left="130"
+                    Canvas.Top="114"
+                    Height="20"
+                    IsReadOnly="True"
+                    Text="{Binding ElectronsNumber}"
+                    Width="30"
+                    x:Name="ElectronsTextBox" />
+            </Canvas>
         </Canvas>
         <oxy:PlotView
             Grid.Column="1"

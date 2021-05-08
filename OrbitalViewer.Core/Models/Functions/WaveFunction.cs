@@ -14,9 +14,7 @@ namespace OrbitalViewer.Core.Models.Functions
             _sphericalFunction = new SphericalFunction(orbitalQuantumNumber, magneticQuantumNumber);
         }
 
-        public double GetValue(double radius, double theta, double phi)
-        {
-            return Math.Pow(_radialFunction.GetValue(radius) * _sphericalFunction.GetValue(theta, phi), 2);
-        }
+        public double GetValue(double radius, double theta, double phi) =>
+            4 * Math.PI * Math.Pow(radius * _radialFunction.GetValue(radius) * _sphericalFunction.GetValue(theta, phi), 2);
     }
 }

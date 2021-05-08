@@ -122,11 +122,12 @@ namespace OrbitalViewer.WPF.ViewModels
                     {
                         PlotModel plotModel = new PlotModel
                         {
-                            Title = "Electrons probability density"
+                            Title = "Electrons probability density",
                         };
                         plotModel.Axes.Add(new LinearColorAxis
                         {
-                            Palette = OxyPalettes.Jet(1024)
+                            Palette = OxyPalettes.Jet(1024),
+                            Key = "Meter",
                         });
                         var waveFunction = new WaveFunction(_principalQuantumNumber, _orbitalQuantumNumber,
                             _magneticQuantumNumber);
